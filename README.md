@@ -31,3 +31,15 @@ env | grep DOCKER_
 ```bash
 docker-compose up -d
 ```
+
+- Update /etc/hosts on Mac to point 'dashboard' to docker-machine IP
+
+```bash
+$ grep dashboard /etc/hosts
+192.168.99.100 dashboard
+```
+
+- Point browser to:
+    - Grafana: https://dashboard/grafana/
+    - RabbitMQ: https://dashboard/rabbitmq/
+    - Uchiwa: https://dashboard/sensu/
