@@ -40,6 +40,6 @@ $ grep dashboard /etc/hosts
 ```
 
 - Point browser to:
-    - Grafana: https://dashboard/grafana/
-    - RabbitMQ: https://dashboard/rabbitmq/
-    - Uchiwa: https://dashboard/sensu/
+    - Grafana: [](http://dashboard/grafana/)
+    - RabbitMQ: [](http://dashboard/rabbitmq/)
+    - Uchiwa: [](http://dashboard/sensu/)
