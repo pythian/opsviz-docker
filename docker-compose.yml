@@ -1,0 +1,114 @@
+#TODO: Replace with links service discovery
+
+# elasticsearch:
+#   # container_name: elasticsearch
+#   image: elasticsearch
+
+graphite:
+  container_name: graphite
+  build: ./graphite
+  links:
+    - "rabbitmq:rabbitmq"
+
+grafana:
+  container_name: grafana
+  build: ./grafana
+  links:
+    - "graphite:graphite"
+  environment:
+    - GF_SERVER_ROUTER_LOGGING=true
+    - GF_LOG_LEVEL=Debug
+
+rabbitmq:
+  container_name: rabbitmq
+  build: ./rabbitmq
+  environment:
+    - RABBITMQ_ERLANG_COOKIE="adminiscope opviz rabbitmq"
+
+redis:
+  container_name: redis
+  build: ./redis-master
+
+sensu-server:
+  container_name: sensu-server
+  build: ./sensu-server
+  links:
+    - "redis:redis"
+    - "rabbitmq:rabbitmq"
+    - "graphite:graphite"
+  command: server
+
+sensu-api:
+  container_name: sensu-api
+  build: ./sensu-server
+  links:
+    - "sensu-server:api"
+    - "redis:redis"
+    - "rabbitmq:rabbitmq"
+  command: api
+
+uchiwa:
+  container_name: uchiwa
+  build: ./uchiwa
+  links:
+    - "sensu-api:sensu"
+
+# kibana:
+#   image: kibana
+#   # TODO: Convert this to haproxy url as environment variable
+#   links:
+#     - elasticsearch
+#   environment:
+#     - VIRTUAL_HOST=kibana.local
+#   #   - ELASTICSEARCH_URL=http://haproxy_url:
+
+doorman:
+  container_name: doorman
+  build: ./doorman
+  ports:
+    - "80:80"
+  links:
+    - "nginx:nginx"
+  volumes:
+    - "/Users/dtest/devel/DTest/doorman/lib:/doorman/lib"
+    - "./doorman/doorman.conf.js:/doorman/conf.js"
+
+nginx:
+  container_name: nginx_proxy
+  hostname: dashboard
+  build: ./nginx-proxy
+  links:
+    - "graphite:graphite"
+    - "grafana:grafana"
+    - "rabbitmq:rabbitmq"
+    - "uchiwa:uchiwa"
+  volumes:
+    - "./nginx-proxy/conf/dashboard.conf:/etc/nginx/sites-enabled/dashboard.conf"
+
+logstash-server:
+  container_name: logstash-server
+  build: ./logstash-server
+  links:
+    - "rabbitmq:rabbitmq"
+    - "statsd:statsd"
+  command: logstash -f /etc/logstash/conf.d/server.conf
+
+statsd:
+  container_name: statsd
+  build: ./statsd
+  links:
+    - "graphite:graphite"
+
+# Sensu clients
+rabbitmq_sensu:
+  container_name: rabbitmq_sensu
+  build: ./sensu-client
+  links:
+    - "rabbitmq:rabbitmq"
+    - "sensu-server:server"
+  volumes:
+    - "./sensuclient_conf/rabbitmq.json:/etc/sensu/conf.d/client.json"
+  command: client
+
+# haproxy:
+  # configuration to proxy for dashboard, rabbitmq, graphite, elasticsearch

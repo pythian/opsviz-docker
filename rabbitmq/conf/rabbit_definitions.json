@@ -1,0 +1,37 @@
+{"rabbit_version":"3.6.0",
+"users":[
+  {"name":"sensu","password_hash":"U1L0swD1PGIdTtInWXwzBSFwI5y5E2Q9dtfJBKl8hPBvG/Rr","tags":""},
+  {"name":"admin","password_hash":"Pt6GH6zNWE8sSzw82EDu2qwA/VjtXgQuPqdEU26C4XgySYYE","tags":"administrator"},
+  {"name":"logstash_internal","password_hash":"qcoSFMpuHen5aRnP5vEXsM5nYFy+1l9/zS2pEnK3Kbz/y+wQ","tags":""},
+  {"name":"monitoring","password_hash":"lvHWwcG3HUj4OLbtwoZLOst6E4Z297KqxIsSRtedpGqmE4PU","tags":"monitoring"}
+],
+"vhosts":[
+  {"name":"/"},
+  {"name":"/logstash"},
+  {"name":"/sensu"}
+],
+"permissions":[
+  {"user":"logstash_internal","vhost":"/logstash","configure":".*","write":".*","read":".*"},
+  {"user":"admin","vhost":"/","configure":".*","write":".*","read":".*"},
+  {"user":"sensu","vhost":"/sensu","configure":".*","write":".*","read":".*"}
+],
+"parameters":[],
+"policies":[],
+"queues":[
+  {"name":"incoming_logs","vhost":"/logstash","durable":false,"auto_delete":false,"arguments":{}},
+  {"name":"keepalives","vhost":"/sensu","durable":false,"auto_delete":true,"arguments":{}},
+  {"name":"results","vhost":"/sensu","durable":false,"auto_delete":true,"arguments":{}},
+  {"name":"rabbitmq-0.20.3-1452031820","vhost":"/sensu","durable":false,"auto_delete":true,"arguments":{}}
+],
+"exchanges":[
+  {"name":"logstash","vhost":"/logstash","type":"direct","durable":false,"auto_delete":false,"internal":false,"arguments":{}},
+  {"name":"keepalives","vhost":"/sensu","type":"direct","durable":false,"auto_delete":false,"internal":false,"arguments":{}},
+  {"name":"results","vhost":"/sensu","type":"direct","durable":false,"auto_delete":false,"internal":false,"arguments":{}},
+  {"name":"rabbitmq","vhost":"/sensu","type":"fanout","durable":false,"auto_delete":false,"internal":false,"arguments":{}}
+],
+"bindings":[
+  {"source":"logstash","vhost":"/logstash","destination":"incoming_logs","destination_type":"queue","routing_key":"logstash","arguments":{}},
+  {"source":"keepalives","vhost":"/sensu","destination":"keepalives","destination_type":"queue","routing_key":"","arguments":{}},
+  {"source":"rabbitmq","vhost":"/sensu","destination":"rabbitmq-0.20.3-1452031820","destination_type":"queue","routing_key":"","arguments":{}},
+  {"source":"results","vhost":"/sensu","destination":"results","destination_type":"queue","routing_key":"","arguments":{}}
+]}

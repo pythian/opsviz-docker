@@ -1,0 +1,12 @@
+{
+  "client": {
+    "name": "rabbitmq",
+    "address": "rabbitmq.local",
+    "subscriptions": [
+      "rabbitmq"
+    ],
+    "rabbitmq": {
+      "host": "rabbitmq"
+    }
+  }
+}

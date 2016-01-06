@@ -1,0 +1,11 @@
+{
+  "checks": {
+    "rabbitmq-metrics": {
+      "type": "metric",
+      "handlers": ["graphite"],
+      "command": "/etc/sensu/plugins/rabbitmq-overview-metrics.rb --host :::rabbitmq.host|localhost::: --user monitoring --password \"guest\" --scheme stats.:::name:::",
+      "interval": 60,
+      "subscribers": ["rabbitmq"]
+    }
+  }
+}

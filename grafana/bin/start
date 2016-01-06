@@ -1,0 +1,14 @@
+#!/bin/bash
+set -x
+
+# start grafana
+/usr/sbin/grafana-server --homepath=/usr/share/grafana --config=/etc/grafana/grafana.ini cfg:default.paths.data=/var/lib/grafana cfg:default.paths.logs=/var/log/grafana
+
+sleep 5
+
+# Create default datasource
+/usr/bin/curl \
+-X POST \
+-H 'Content-Type: application/json;charset=UTF-8' \
+--data-binary "{\"name\":\"Graphite\",\"isDefault\":true,\"type\":\"graphite\",\"url\":\"http://graphite:8000\",\"access\":\"proxy\"}" \
+"http://localhost:3000/api/datasources"
