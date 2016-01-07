@@ -3,7 +3,7 @@
 # Script to push opsviz stack to ECR
 
 # profile name in ~/.aws/credentials
-AWS_PROFILE=adminiscope
+AWS_PROFILE=opsviz
 
 # AWS account number
 AWS_ACCOUNT=406520544174
