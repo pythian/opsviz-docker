@@ -1,9 +1,3 @@
-#TODO: Replace with links service discovery
-
-# elasticsearch:
-#   # container_name: elasticsearch
-#   image: elasticsearch
-
 graphite:
   container_name: graphite
   build: ./graphite
@@ -53,15 +47,6 @@ uchiwa:
   links:
     - "sensu-api:sensu"
 
-# kibana:
-#   image: kibana
-#   # TODO: Convert this to haproxy url as environment variable
-#   links:
-#     - elasticsearch
-#   environment:
-#     - VIRTUAL_HOST=kibana.local
-#   #   - ELASTICSEARCH_URL=http://haproxy_url:
-
 doorman:
   container_name: doorman
   build: ./doorman
@@ -70,7 +55,6 @@ doorman:
   links:
     - "nginx:nginx"
   volumes:
-    - "/Users/dtest/devel/DTest/doorman/lib:/doorman/lib"
     - "./doorman/doorman.conf.js:/doorman/conf.js"
 
 nginx:
@@ -110,5 +94,5 @@ rabbitmq_sensu:
     - "./sensuclient_conf/rabbitmq.json:/etc/sensu/conf.d/client.json"
   command: client
 
-# haproxy:
-  # configuration to proxy for dashboard, rabbitmq, graphite, elasticsearch
+# TODO: Replace with links service discovery
+# TODO: High Availability setup for dockerized services

@@ -43,3 +43,5 @@ $ grep dashboard /etc/hosts
     - Grafana: [http://dashboard/grafana/](http://dashboard/grafana/)
     - RabbitMQ: [http://dashboard/rabbitmq/](http://dashboard/rabbitmq/)
     - Uchiwa: [http://dashboard/sensu/](http://dashboard/sensu/)
+
+- Currently, you have to manually add the graphite datasource via the grafana dashboard.
