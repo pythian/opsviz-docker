@@ -6,7 +6,7 @@
 AWS_PROFILE=opsviz
 
 # AWS account number
-AWS_ACCOUNT=406520544174
+AWS_ACCOUNT=
 
 # Example commands:
 #   aws --profile $AWS_PROFILE ecr create-repository --repository-name opsviz/doorman
