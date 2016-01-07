@@ -45,3 +45,9 @@ $ grep dashboard /etc/hosts
     - Uchiwa: [http://dashboard/sensu/](http://dashboard/sensu/)
 
 - Currently, you have to manually add the graphite datasource via the grafana dashboard.
+
+## TODO
+- ElasticSearch and Kibana containers have not been tested, as the initial development makes use of AWS ElasticSearch service
+- Does not have sensu clients for all containers. Currently, containers are built without sensu-client running, and requires running a <service>-sensu container with appropriate subscriptions. Need to determine if each container should run sensu-client natively.
+- Make containers stateless and ability to cluster appropriate services for HA. Service Discovery will be necessary
+
