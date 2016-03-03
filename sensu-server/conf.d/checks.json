@@ -1,5 +1,40 @@
 {
   "checks": {
+    "cpu-metrics": {
+      "type": "metric",
+      "handlers": ["graphite"],
+      "command": "/etc/sensu/plugins/cpu-metrics.rb --scheme stats.:::name:::",
+      "interval": 60,
+      "subscribers": ["all"]
+    },
+    "disk-metrics": {
+      "type": "metric",
+      "handlers": ["graphite"],
+      "command": "/etc/sensu/plugins/disk-metrics.rb --scheme stats.:::name:::",
+      "interval": 60,
+      "subscribers": ["all"]
+    },
+    "load-metrics": {
+      "type": "metric",
+      "handlers": ["graphite"],
+      "command": "/etc/sensu/plugins/load-metrics.rb --scheme stats.:::name:::",
+      "interval": 60,
+      "subscribers": ["all"]
+    },
+    "memory-metrics": {
+      "type": "metric",
+      "handlers": ["graphite"],
+      "command": "/etc/sensu/plugins/memory-metrics.rb --scheme stats.:::name:::",
+      "interval": 60,
+      "subscribers": ["all"]
+    },
+    "net-metrics": {
+      "type": "metric",
+      "handlers": ["graphite"],
+      "command": "/etc/sensu/plugins/metrics-net.rb --scheme stats.:::name:::",
+      "interval": 60,
+      "subscribers": ["all"]
+    },
     "rabbitmq-metrics": {
       "type": "metric",
       "handlers": ["graphite"],
@@ -7,5 +42,6 @@
       "interval": 60,
       "subscribers": ["rabbitmq"]
     }
+
   }
 }

@@ -1,2 +1,2 @@
-FROM opsvizdocker_sensu-server
+FROM opsviz/sensu-server
 MAINTAINER devops@pythian.com
