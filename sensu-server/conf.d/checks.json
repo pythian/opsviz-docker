@@ -27,6 +27,13 @@
       "command": "/etc/sensu/plugins/memory-metrics.rb --scheme stats.:::name:::",
       "interval": 60,
       "subscribers": ["all"]
+    },    
+    "interface-metrics": {
+      "type": "metric",
+      "handlers": ["graphite"],
+      "command": "/etc/sensu/plugins/metrics-interface.rb --scheme stats.:::name:::",
+      "interval": 60,
+      "subscribers": ["all"]
     },
     "net-metrics": {
       "type": "metric",
