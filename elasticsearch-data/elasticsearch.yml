@@ -32,6 +32,8 @@ discovery:
     ping:
       multicast:
         enabled: false
+      unicast:
+        hosts: ["elasticsearch-master:9200"]
 
 path:
   data: /data/data
