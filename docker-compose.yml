@@ -1,3 +1,25 @@
+elasticsearch-master:
+    container_name: elasticsearch-master
+    build: ./elasticsearch-master
+    ports:
+        - 9200:9200
+
+elasticsearch-data:
+    container_name: elasticsearch-data
+    build: ./elasticsearch-data
+    links:
+        - elasticsearch-master
+
+kibana:
+    container_name: kibana
+    build: ./kibana
+    ports:
+      - 5601:5601
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch-master:9200
+    links:
+      - elasticsearch-master
+
 graphite:
   container_name: graphite
   build: ./graphite
